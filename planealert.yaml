@@ -1,0 +1,24 @@
+alias: Plane Alert
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.planealert
+    attribute: datetime
+conditions: []
+actions:
+  - action: notify.mobile_app_whatever
+    metadata: {}
+    data:
+      title: Plane Alert!
+      message: >-
+        {{ state_attr('sensor.planealert', 'operator') }} {{
+        state_attr('sensor.planealert', 'flight') }} {{
+        state_attr('sensor.planealert', 'type') }}, {{
+        state_attr('sensor.planealert', 'tag_1') }},  {{
+        state_attr('sensor.planealert', 'tag_2') }}, {{
+        state_attr('sensor.planealert', 'tag_3') }} at {{
+        states('sensor.planealert_date_time') }}
+      data:
+        image: "{{ state_attr('sensor.planealert', 'thumbnail') }}"
+mode: single
