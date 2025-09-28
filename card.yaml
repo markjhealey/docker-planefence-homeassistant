@@ -1,0 +1,22 @@
+type: custom:vertical-stack-in-card
+cards:
+  - show_state: false
+    show_name: false
+    camera_view: auto
+    fit_mode: cover
+    type: picture-entity
+    entity: camera.t_plnspttrs_net_2
+  - type: entities
+    entities:
+      - entity: sensor.planealert_flight
+        secondary_info: none
+        icon: mdi:airplane
+        name: Flight
+      - entity: sensor.planealert_operator
+        name: Operator
+        icon: mdi:airplane-search
+      - entity: sensor.planealert_type
+        icon: mdi:airplane-settings
+      - entity: sensor.planealert_date_time
+        name: Detected
+        icon: mdi:clock-time-four-outline
