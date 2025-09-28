@@ -5,3 +5,5 @@ The code in configuration.yaml will process MQTT messages from a dafault planefe
 The sensors are slightly different for planefence and plane-alert.
 
 The code in planealert.yaml configures an alert to your mobile phone via the Home Assistant app when an aircraft of interest is heard by your ADS-B station feeding Planefence, including an image.
+
+The code in card.yaml will display the latest aircraft of interest on your dashboard, using the vertical stack in card.
