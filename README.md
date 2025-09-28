@@ -8,7 +8,10 @@ The code in planealert.yaml configures an alert to your mobile phone via the Hom
 
 The code in card.yaml will display the latest aircraft of interest on your dashboard, using the vertical stack in card.
 
-In order to display images, create two Generic Camera entitiee, one for planefence and one for plane-alert.
+In order to display images, create two Generic Camera entitiee, one for planefence and one for plane-alert, in that order.
+
 Enter the still image URLs as:
+
 {{ states('sensor.planefence_thumbnail') }}
+
 {{ states('sensor.planealert_thumbnail') }}
