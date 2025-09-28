@@ -1,5 +1,5 @@
 alias: Plane Alert
-description: ""
+description: "Send an alert to your mobile phone via the Home Assistant app when an aircraft of interest is heard by your ADS-B station running Planefence"
 triggers:
   - trigger: state
     entity_id:
