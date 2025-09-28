@@ -1,0 +1,146 @@
+# Include these sections in your main configuration.yaml
+template:
+  - trigger:
+      - trigger: mqtt
+        topic: "planefence/planealert"
+        id: planealert
+    sensor:
+      - unique_id: planealert-events-from-mqtt
+        name: Planealert Events
+        state: >
+          {{ now() }}
+        attributes:
+          planealert_events: >
+            {% set datetime = trigger.payload_json.datetime %}
+            {% set flight = trigger.payload_json.flight %}
+            {% set tail = trigger.payload_json.tail %}
+            {% set current = this.attributes.get('planealert_events', []) %}
+            {% set new = dict(datetime=datetime, flight=flight, tail=tail) %}
+            {{ current + [new] }}
+
+  - trigger:
+      - trigger: mqtt
+        topic: "planefence/planealert"
+        id: planealert
+    sensor:
+      - unique_id: planealert-events-from-mqtt
+        name: Planealert Events
+        state: >
+          {{ now() }}
+        attributes:
+          planealert_events: >
+            {% set datetime = trigger.payload_json.datetime %}
+            {% set flight = trigger.payload_json.flight %}
+            {% set tail = trigger.payload_json.tail %}
+            {% set current = this.attributes.get('planealert_events', []) %}
+            {% set new = dict(datetime=datetime, flight=flight, tail=tail) %}
+            {{ current + [new] }}
+            
+mqtt:
+  sensor:
+    # Planefence
+    - name: "Planefence"
+      state_topic: "planefence/planefence"
+      value_template: "{{ now() }}"
+      json_attributes_topic: "planefence/planefence"
+      json_attributes_template: "{{ value_json | tojson }}"
+    - name: "Planefence Operator"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.operator }}"
+    - name: "Planefence Minimum Distance"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.min_dist }}"
+    - name: "Planefence Thumbnail"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.thumbnail }}"
+    - name: "Planefence Flight"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.flight }}"
+    - name: "Planefence First Seen"
+      state_topic: "planefence/planefence"
+      value_template: "{{ as_datetime(value_json.first_seen) }}"
+    - name: "Planefence Last Seen"
+      state_topic: "planefence/planefence"
+      value_template: "{{ as_datetime(value_json.last_seen) }}"
+    - name: "Planefence Planespotters Link"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.planespotters_link }}"
+    - name: "Planefence Minimum Altitude"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.min_alt }}"
+    - name: "Planefence Origin"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.origin }}"
+    - name: "Planefence Destination"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.destination }}"
+    - name: "Planefence ICAO"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.icao }}"
+    - name: "Planefence Link"
+      state_topic: "planefence/planefence"
+      value_template: "{{ value_json.link }}"
+    - name: "Planefence Time"
+      state_topic: "planefence/planefence"
+      value_template: "{{ now() }}"
+
+    # PlaneAlert
+    - name: "PlaneAlert"
+      state_topic: "planefence/planealert"
+      value_template: "{{ now() }}"
+      json_attributes_topic: "planefence/planealert"
+      json_attributes_template: "{{ value_json | tojson }}"
+    - name: "PlaneAlert Operator"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.operator }}"
+    - name: "PlaneAlert Type"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.type }}"
+    - name: "PlaneAlert ICAO Type"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.icao_type }}"
+    - name: "PlaneAlert Thumbnail"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.thumbnail }}"
+    - name: "PlaneAlert Emergency"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.emergency }}"
+    - name: "PlaneAlert Squawk"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.squawk }}"
+    - name: "PlaneAlert Flight"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.flight }}"
+    - name: "PlaneAlert Planespotters Link"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.planespotters_link }}"
+    - name: "PlaneAlert Tracklink"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.tracklink }}"
+    - name: "PlaneAlert Tag 1"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.tag_1 }}"
+    - name: "PlaneAlert Tag 2"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.tag_2 }}"
+    - name: "PlaneAlert Tag 3"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.tag_3 }}"
+    - name: "PlaneAlert Date Time"
+      state_topic: "planefence/planealert"
+      value_template: "{{ as_datetime(value_json.datetime) }}"
+    - name: "PlaneAlert Latitude"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.latitude }}"
+    - name: "PlaneAlert Tail"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.tail }}"
+    - name: "PlaneAlert ICAO"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.icao }}"
+    - name: "PlaneAlert Longitude"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.longitude }}"
+    - name: "PlaneAlert Link"
+      state_topic: "planefence/planealert"
+      value_template: "{{ value_json.link }}"
